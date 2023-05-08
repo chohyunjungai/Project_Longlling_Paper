@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import Modal from 'react-modal'
 import styled from 'styled-components'
+import Form from 'react-bootstrap/Form'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 const User = {
     email: 'miny@gmail.com',
@@ -7,14 +11,45 @@ const User = {
 }
 
 function LoginPage() {
+    // const { inputValue, setInputValue} = useState({
+    //     nickname: '', email: '', password: ''
+    // })
+
+    //  Get
+    // const [signups, setSignups] = useState(null)
+
+    // const fatchSignup = async () => {
+    //     const {data} =  await axios.get('http://localhost:4001/signup')
+    //     // console.log('data', data)
+    //     setSignups(data)
+    //   }
+    
+    //   useEffect(() => {
+    //     // db로부터 값을 가져올 것이다.
+    //     fatchSignup()
+    //   }, [])
+
+
+    const navigate = useNavigate()
 
     const [email, setEmail] = useState('')
     const [pw, setPw] = useState('')
 
     const [emailValid, setEmailValid] = useState(false)
     const [pwValid, setPwValid] = useState(false)
+
     // 이메일, 비번 조건 충족 시 로그인버튼 활성화
     const [notAllow, setNotAllow] = useState(true)
+
+    const validateForm = () => {
+        if (pw !== pwCheck) {
+            // 패스워드 값이 일치
+            return false
+        } else {
+            // 패스워드 값이 불일치
+            return true
+        }
+    }
 
     const handleEmail = (e) => {
         setEmail(e.target.value)
@@ -38,13 +73,13 @@ function LoginPage() {
         }
     }
 
-    const loginBtn = () => {
-        if(email === User.email && pw === User.pw) {
-            alert('로그인 성공!')
-        } else {
-            alert('등록되지 않은 회원입니다.')
-        }
-    }
+    // const loginBtn = () => {
+    //     if(email === User.email && pw === User.pw) {
+    //         alert('로그인 성공!ヽ(✿ﾟ▽ﾟ)ノ')
+    //     } else {
+    //         alert('등록되지 않은 회원입니다.╯︿╰')
+    //     }
+    // }
 
     // 버튼 활성화 여부 체크
     useEffect(() => {
@@ -58,8 +93,24 @@ function LoginPage() {
         setNotAllow(true)
     }, [emailValid, pwValid])
 
+
+    // const handleSubmit = () => {
+    //     e.preventDefault()
+
+    //     const
+    // }
+
+
+
   return (
       <Page>
+        {/* {signups?.map((item) => {
+            return (
+                <div key={item.email}>
+                    {item.nickname} : {item.email} : {item.password}
+                </div>
+            )
+        })} */}
           <TitleWrap>
               LOGIN
           </TitleWrap>
@@ -94,11 +145,9 @@ function LoginPage() {
           </ContentWrap>
 
           <BtnBox>
-              <BottomBtn>회원가입</BottomBtn>
+              <BottomBtn onClick={() => {navigate("/joinPage")}}>회원 가입</BottomBtn>
               <BottomBtn onClick={loginBtn} disabled={notAllow}>로그인</BottomBtn>
           </BtnBox>
-          
-
 
       </Page>
   )
@@ -187,4 +236,9 @@ const BottomBtn = styled.button`
         background-color: #dadada;
         color: white;
     }
+`
+const BottomBtnBox = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin: 80px 40px;
 `
