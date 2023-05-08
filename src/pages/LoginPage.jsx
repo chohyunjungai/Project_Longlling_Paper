@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Modal from 'react-modal'
 import styled from 'styled-components'
-import Form from 'react-bootstrap/Form'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
@@ -11,23 +9,10 @@ const User = {
 }
 
 function LoginPage() {
-    // const { inputValue, setInputValue} = useState({
-    //     nickname: '', email: '', password: ''
+    // const [inputValue, setInputValue] = useState({
+    //     email: '', password: '',
     // })
-
-    //  Get
-    // const [signups, setSignups] = useState(null)
-
-    // const fatchSignup = async () => {
-    //     const {data} =  await axios.get('http://localhost:4001/signup')
-    //     // console.log('data', data)
-    //     setSignups(data)
-    //   }
-    
-    //   useEffect(() => {
-    //     // db로부터 값을 가져올 것이다.
-    //     fatchSignup()
-    //   }, [])
+    // console.log(inputValue)
 
 
     const navigate = useNavigate()
@@ -41,16 +26,6 @@ function LoginPage() {
     // 이메일, 비번 조건 충족 시 로그인버튼 활성화
     const [notAllow, setNotAllow] = useState(true)
 
-    const validateForm = () => {
-        if (pw !== pwCheck) {
-            // 패스워드 값이 일치
-            return false
-        } else {
-            // 패스워드 값이 불일치
-            return true
-        }
-    }
-
     const handleEmail = (e) => {
         setEmail(e.target.value)
         const regex = 
@@ -61,56 +36,61 @@ function LoginPage() {
             setEmailValid(false)
         }
     }
-    const handlePassword = (e) => {
-        setPw(e.target.value)
-        const regex = 
-        // 최소 8자 이상의 소문자와 숫자
-        /^(?=.*[a-z])(?=.*\d)[a-z\d]{8,}$/
-        if(regex.test(pw)) {
-            setPwValid(true)
-        } else {
-            setPwValid(false)
-        }
-    }
-
-    // const loginBtn = () => {
-    //     if(email === User.email && pw === User.pw) {
-    //         alert('로그인 성공!ヽ(✿ﾟ▽ﾟ)ノ')
+    // const handlePassword = (e) => {
+    //     setPw(e.target.value)
+    //     const regex = 
+    //     // 최소 8자 이상의 소문자와 숫자
+    //     /^(?=.*[a-z])(?=.*\d)[a-z\d]{8,}$/
+    //     if(regex.test(pw)) {
+    //         setPwValid(true)
     //     } else {
-    //         alert('등록되지 않은 회원입니다.╯︿╰')
+    //         setPwValid(false)
     //     }
     // }
 
+
     // 버튼 활성화 여부 체크
-    useEffect(() => {
-        // state값이 변화가 일어날 때마다 코드가 실행됨
-        // emailValid && pwValid가 모두 true이면 버튼 비활성화 -> 활성화로 return
-        if(emailValid && pwValid) {
-            setNotAllow(false)
-            return
+    // useEffect(() => {
+    //     // state값이 변화가 일어날 때마다 코드가 실행됨
+    //     // emailValid && pwValid가 모두 true이면 버튼 비활성화 -> 활성화로 return
+    //     if(emailValid && pwValid) {
+    //         setNotAllow(false)
+    //         return
+    //     }
+    //     // 기본적으로는 비활성화
+    //     setNotAllow(true)
+    // }, [emailValid, pwValid])
+
+
+    const onSubmitHandler = async () => {
+        try {
+            const data = {
+              email,
+              password: pw,
+            };
+            const response = await axios.post('43.201.106.25/api/login', data);
+        
+            if (response.status === 200 && response.data.success) {
+              // 로그인이 성공했을 경우
+              navigate('/home');
+            } else {
+              // 로그인이 실패했을 경우
+              alert('로그인 정보가 일치하지 않습니다.');
+            }
+          } catch (error) {
+            console.log(error);
+            alert('서버와의 연결이 원활하지 않습니다.');
+          }
         }
-        // 기본적으로는 비활성화
-        setNotAllow(true)
-    }, [emailValid, pwValid])
-
-
-    // const handleSubmit = () => {
-    //     e.preventDefault()
-
-    //     const
-    // }
-
 
 
   return (
       <Page>
-        {/* {signups?.map((item) => {
-            return (
-                <div key={item.email}>
-                    {item.nickname} : {item.email} : {item.password}
-                </div>
-            )
-        })} */}
+        <form
+        onSubmit={(e) => {
+            e.preventDefault()
+            onSubmitHandler()
+        }}>
           <TitleWrap>
               LOGIN
           </TitleWrap>
@@ -134,7 +114,7 @@ function LoginPage() {
                   <Input
                   type='password'
                   value={pw}
-                  onChange={handlePassword}
+                  onChange={(e) => setPw(e.target.value)}
                   placeholder='영문, 숫자 8자 이상'/>
               </InputWrap>
               <ErrorMessageWrap>
@@ -146,9 +126,10 @@ function LoginPage() {
 
           <BtnBox>
               <BottomBtn onClick={() => {navigate("/joinPage")}}>회원 가입</BottomBtn>
-              <BottomBtn onClick={loginBtn} disabled={notAllow}>로그인</BottomBtn>
+              <BottomBtn type="submit">로그인</BottomBtn>
+              {/* disabled={notAllow} */}
           </BtnBox>
-
+          </form>
       </Page>
   )
 }
