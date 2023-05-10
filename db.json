@@ -1,14 +1,58 @@
-{
-    "signup": [
-      {
-        "nickname": "minyoung",
-        "email": "minyS2@gmail.com",
-        "password": "dkssud1234"
-      },
-      {
-        "nickname": "min",
-        "email": "min@gmail.com",
-        "password": "dkssud12345"
-      }
-    ]
-  }
+
+// {
+//   "posts": [
+//     {
+//       "id": 1,
+//       "userId": 1,
+//       "title": "첫번째 포스트",
+//       "body": "첫번째 포스트 내용입니다.",
+//       "createdAt": "2023-05-09T10:00:00.000Z",
+//       "updatedAt": "2023-05-10T10:00:00.000Z"
+//     },
+//     {
+//       "id": 2,
+//       "userId": 2,
+//       "title": "두번째 포스트",
+//       "body": "두번째 포스트 내용입니다.",
+//       "createdAt": "2023-05-09T11:00:00.000Z",
+//       "updatedAt": "2023-05-10T11:00:00.000Z"
+//     },
+//     {
+//       "id": 3,
+//       "userId": 3,
+//       "title": "세번째 포스트",
+//       "body": "세번째 포스트 내용입니다.",
+//       "createdAt": "2023-05-09T12:00:00.000Z",
+//       "updatedAt": "2023-05-10T12:00:00.000Z"
+//     }
+//   ],
+//   "comments": [
+//     {
+//       "id": 1,
+//       "postId": 1,
+//       "userId": 1,
+//       "nickname": "user1",
+//       "comment": "첫번째 포스트에 대한 첫번째 댓글입니다.",
+//       "createdAt": "2023-05-09T13:00:00.000Z",
+//       "updatedAt": "2023-05-10T13:00:00.000Z"
+//     },
+//     {
+//       "id": 2,
+//       "postId": 1,
+//       "userId": 2,
+//       "nickname": "user2",
+//       "comment": "첫번째 포스트에 대한 두번째 댓글입니다.",
+//       "createdAt": "2023-05-09T14:00:00.000Z",
+//       "updatedAt": "2023-05-10T14:00:00.000Z"
+//     },
+//     {
+//       "id": 3,
+//       "postId": 2,
+//       "userId": 3,
+//       "nickname": "user3",
+//       "comment": "두번째 포스트에 대한 첫번째 댓글입니다.",
+//       "createdAt": "2023-05-09T15:00:00.000Z",
+//       "updatedAt": "2023-05-10T15:00:00.000Z"
+//     }
+//   ]
+// }
